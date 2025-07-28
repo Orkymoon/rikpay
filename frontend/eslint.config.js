@@ -1,23 +1,32 @@
-import js from '@eslint/js'
+import { defineConfig, globalIgnores } from 'eslint/config'
 import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import { globalIgnores } from 'eslint/config'
+import js from '@eslint/js'
+import pluginVue from 'eslint-plugin-vue'
+import pluginVitest from '@vitest/eslint-plugin'
+import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 
-export default tseslint.config([
-  globalIgnores(['dist']),
+export default defineConfig([
   {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs['recommended-latest'],
-      reactRefresh.configs.vite,
-    ],
+    name: 'app/files-to-lint',
+    files: ['**/*.{js,mjs,jsx,vue}'],
+  },
+
+  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
+
+  {
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+      },
     },
   },
+
+  js.configs.recommended,
+  ...pluginVue.configs['flat/essential'],
+  
+  {
+    ...pluginVitest.configs.recommended,
+    files: ['src/**/__tests__/*'],
+  },
+  skipFormatting,
 ])
