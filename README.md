@@ -1,6 +1,8 @@
-# Project rikpay
+# Project Overview
 
-One Paragraph of project description goes here
+This project is designed to streamline the process of purchasing voucher codes by allowing customers to log in directly through the Mikrotik login page, removing the need for third-party intermediaries.
+The system is built with a modern technology stack — Vue.js for the frontend interface and Golang for the backend services — ensuring a responsive and efficient user experience.
+We are committed to continuously improving this platform to better serve our users and adapt to future needs.
 
 ## Getting Started
 
